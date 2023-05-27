@@ -11,6 +11,6 @@ setup(
   ],
   entry_points="""
   [console_scripts]
-  new=cli.cli:cli
+  wsl2vs=cli.cli:cli
   """
 )

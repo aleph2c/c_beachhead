@@ -64,13 +64,93 @@ class Cli:
       with open(output_file_path, "w") as fp:
         fp.write(output_string)
 
+  def get_program_name(self):
+    src_path = (Path(__file__).parent / ".." / "src").resolve()
+    c_files = list(Path(src_path).glob("*.c"))
+    name = None
+    if len(c_files):
+      name = c_files[0].stem
+    return name
+
+  def get_project_name(self):
+    base_path = Path(__file__).parent
+    project = base_path.parent.stem
+    return project
+
+
+  def write_readme_file_after_remove(self):
+    project = self.get_project_name()
+    program = self.get_program_name()
+
+    click.echo(f'project: {project}')
+    click.echo(f'program: {program}')
+
+    template_path = (Path(__file__).parent / ".." / ".templates").resolve()
+    project_root = (Path(__file__).parent / ".." ).resolve()
+
+    readme_template = template_path / 'README.md.j2'
+
+    assert readme_template.exists()
+
+    readme_md = project_root / 'README2.md'
+
+    data = {'project' : project, 'program' : program }
+
+    for template_path, output_file_path in [
+        [readme_template, readme_md],
+        ]:
+      env = Environment(
+        loader=FileSystemLoader([str(template_path.parent)]),
+        trim_blocks=True,
+        lstrip_blocks=True
+      )
+      template = env.get_template(str(template_path.name))
+      output_string = template.render(**data)
+      with open(output_file_path, "w") as fp:
+        fp.write(output_string)
+
 cli_ctx = click.make_pass_decorator(Cli, ensure=True)
 
-@click.command()
-@click.option("--project", default=None, help="Set the project name")
-@click.option("-p", "--program", default=None, help="Set the program name")
+@click.group()
 @cli_ctx
 def cli(ctx, project=None, program=None):
+  pass
+
+@cli.group()
+@cli_ctx
+def c(ctx):
+  '''Commands to create and control a C project'''
+  pass
+
+@cli.command()
+@click.option("-d", "--dry-run", is_flag=True, default=False, help="Dry run the removal")
+@cli_ctx
+def remove(ctx, dry_run):
+  '''Remove all setup code and only leave to created project'''
+  if dry_run:
+    click.echo(f"removing README.md")
+    click.echo(f"removing .venv/*")
+    click.echo(f"removing .templates/*")
+    click.echo(f"removing *.egg-info/*")
+    click.echo(f"removing cli/*")
+    click.echo(f"removing setup.py")
+  else:
+    confirm_string = "Are you sure you want to remove the wls2vc command and it's supporting code"
+    user_result = click.confirm(confirm_string)
+    if user_result:
+      click.echo(f"removing README.md")
+      ctx.write_readme_file_after_remove()
+      click.echo(f"removing .venv/*")
+      click.echo(f"removing .templates/*")
+      click.echo(f"removing *.egg-info/*")
+      click.echo(f"removing cli/*")
+      click.echo(f"removing setup.py")
+
+@c.command()
+@click.option("--project", default=None, help="Set the project name")
+@click.option("-p", "--program", default=None, help="Set the program name")
+def new(ctx, project=None, program=None):
+  '''Create a new C program that works with the WSL and VS Code'''
   this_dir = Path(__file__).parent.parent
 
   if project is None:
