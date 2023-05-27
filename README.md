@@ -4,10 +4,11 @@ The project removes the complexity of setting a C project within the WSL and hav
 
 ## Quick Start
 
+After you have clicked on "Use this template", you will select a ``<repo_name>`` for your derived repo.
 Follow these steps to quickly set up your C project:
 
 ```bash
-git clone git@github.com:aleph2c/c_template.git <project_name>
+git clone git@github.com:aleph2c/<repo_name>.git <project_name>
 cd <project_name>
 python -m venv .venv
 source .venv/bin/activate
@@ -28,7 +29,7 @@ The above command will remove all python and the wls2vs command and create a new
 Here's an example of setting up a C program called "hey" in the WSL:
 
 ```bash
-git clone git@github.com:aleph2c/c_template.git hey_project
+git clone git@github.com:aleph2c/<repo_name>.git hey_project
 cd hey_project
 python -m venv .venv
 source .venv/bin/activate
