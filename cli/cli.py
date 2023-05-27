@@ -64,6 +64,16 @@ class Cli:
       with open(output_file_path, "w") as fp:
         fp.write(output_string)
 
+  def remove_file(self, name):
+    path_to_file = Path(__file__).parent / '..' / name
+    if path_to_file.exists():
+      path_to_file.unlink()
+
+  def remove_dir(self, dirname):
+    path_to_dir = Path(__file__).parent / '..' / dirname
+    if path_to_dir.exists():
+      shutil.rmtree(path_to_dir)
+
   def get_program_name(self):
     src_path = (Path(__file__).parent / ".." / "src").resolve()
     c_files = list(Path(src_path).glob("*.c"))
@@ -76,7 +86,6 @@ class Cli:
     base_path = Path(__file__).parent
     project = base_path.parent.stem
     return project
-
 
   def write_readme_file_after_remove(self):
     project = self.get_project_name()
@@ -92,7 +101,7 @@ class Cli:
 
     assert readme_template.exists()
 
-    readme_md = project_root / 'README2.md'
+    readme_md = project_root / 'README.md'
 
     data = {'project' : project, 'program' : program }
 
@@ -129,9 +138,10 @@ def remove(ctx, dry_run):
   '''Remove all setup code and only leave to created project'''
   if dry_run:
     click.echo(f"removing README.md")
+    click.echo(f"writing new README.md")
     click.echo(f"removing .venv/*")
     click.echo(f"removing .templates/*")
-    click.echo(f"removing *.egg-info/*")
+    click.echo(f"removing {ctx.get_project_name()}.egg-info/*")
     click.echo(f"removing cli/*")
     click.echo(f"removing setup.py")
   else:
@@ -139,16 +149,24 @@ def remove(ctx, dry_run):
     user_result = click.confirm(confirm_string)
     if user_result:
       click.echo(f"removing README.md")
+      ctx.remove_file("README.md")
       ctx.write_readme_file_after_remove()
+      click.echo(f"writing new README.md")
       click.echo(f"removing .venv/*")
+      ctx.remove_dir('.venv')
       click.echo(f"removing .templates/*")
-      click.echo(f"removing *.egg-info/*")
+      ctx.remove_dir('.templates')
+      click.echo(f"removing {ctx.get_project_name()}.egg-info/*")
+      ctx.remove_dir(f'{ctx.get_project_name()}.egg-info')
       click.echo(f"removing cli/*")
+      ctx.remove_dir(f'cli')
       click.echo(f"removing setup.py")
+      ctx.remove_file(f'setup.py')
 
 @c.command()
 @click.option("--project", default=None, help="Set the project name")
 @click.option("-p", "--program", default=None, help="Set the program name")
+@cli_ctx
 def new(ctx, project=None, program=None):
   '''Create a new C program that works with the WSL and VS Code'''
   this_dir = Path(__file__).parent.parent
