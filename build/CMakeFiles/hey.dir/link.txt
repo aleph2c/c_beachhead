@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/hey.dir/src/hey.c.o -o hey 
