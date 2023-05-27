@@ -1,22 +1,35 @@
 # Easy C Programming Setup
 
-The project removes the complexity of setting a C project within the WSL and having access to it's build and debug (via gdb) from within VS Code running on Windows 11.
+This project removes the complexity of setting a C project within the WSL and
+having access to it's build (via CMake) and debug (via gdb) from within VS Code
+running on Windows 11.
 
 ## Quick Start
 
 After you have clicked on "Use this template", you will select a ``<repo_name>`` for your derived repo.
-Follow these steps to quickly set up your C project:
+
+Once you have your ``<repo_name>`` follow these steps to quickly set up your C project:
 
 ```bash
-git clone git@github.com:aleph2c/<repo_name>.git <project_name>
-cd <project_name>
+git clone git@github.com:aleph2c/<repo_name>.git
+cd <repo_name>
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .
 wsl2vs new c <program_name>
+code . # open VS code and write/build/debug your c files
 ```
 
-To remove the Python and only leave the C project:
+The above command will create:
+- ``/src/<program_name>.c``
+- ``/inc/<program_name>.h``
+- ``CMakeLists.txt`` configured to create ``<project_name>.c``
+- ``.vscode/`` directory with all of the configuration files required for VS
+Code (running on Windows 11) to build and debug your C programs within the WSL.
+
+---
+Once you are happy with your environment, you can remove the Python and it's
+helper commands to only leave the C project:
 
 ```
 wls2vs remove
@@ -29,8 +42,8 @@ The above command will remove all python and the wls2vs command and create a new
 Here's an example of setting up a C program called "hey" in the WSL:
 
 ```bash
-git clone git@github.com:aleph2c/<repo_name>.git hey_project
-cd hey_project
+git clone git@github.com:aleph2c/<repo_name>.git
+cd <repo_name>
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .
@@ -52,7 +65,7 @@ cmake ..
 make
 
 # to run the program
-./<program_name>
+./hey
 ```
 
 If you are happy with your C project, unclutter your directory by removing the ``wsl2vc`` command and all of its supporting python:
@@ -63,10 +76,8 @@ wsl2vs remove
 
 ## A Deeper Look
 
-This project uses the `click` Python command library to create a command called `new`. The `new` command, when supplied with a name, initiates a new C
-project. 
-
-Running the `new` command generates the following:
+This project uses the `click` Python command library to create a command called `wsl2vc`. The `wsl2vc c new <program_name>` command, creates a new WSL C
+project by generating the following:
 
 - `.vscode/tasks.json`: Configures the `make`, `cmake`, and `C/C++: gcc build active file` tasks, which are necessary for creating the executable.
 - `.vscode/launch.json`: Configures VS Code to utilize the gdb debugger within the WSL.
