@@ -13,10 +13,10 @@ Once you have your ``<repo_name>`` follow these steps to quickly set up your C p
 ```bash
 git clone git@github.com:aleph2c/<repo_name>.git
 cd <repo_name>
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-wsl2vs new c <program_name>
+wsl2vs new c -p <program_name>
 code . # open VS code and write/build/debug your c files
 ```
 
@@ -44,10 +44,10 @@ Here's an example of setting up a C program called "hey" in the WSL:
 ```bash
 git clone git@github.com:aleph2c/<repo_name>.git
 cd <repo_name>
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-wsl2vs new c hey
+wsl2vs new c -p hey
 ```
 
 To open the project in VS Code, use the following command:
