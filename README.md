@@ -16,7 +16,7 @@ cd <repo_name>
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-wsl2vs new c -p <program_name>
+wsl2vs c new -p <program_name>
 code . # open VS code and write/build/debug your c files
 ```
 
@@ -47,7 +47,7 @@ cd <repo_name>
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-wsl2vs new c -p hey
+wsl2vs c new -p hey
 ```
 
 To open the project in VS Code, use the following command:
