@@ -164,15 +164,12 @@ def remove(ctx, dry_run):
       ctx.remove_file(f'setup.py')
 
 @c.command()
-@click.option("--project", default=None, help="Set the project name")
-@click.option("-p", "--program", default=None, help="Set the program name")
+@click.argument("program", nargs=1)
 @cli_ctx
-def new(ctx, project=None, program=None):
+def new(ctx, program=None):
   '''Create a new C program that works with the WSL and VS Code'''
   this_dir = Path(__file__).parent.parent
-
-  if project is None:
-    project = this_dir.name
+  project = this_dir.name
   if program is None:
     program = project
 

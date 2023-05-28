@@ -1,3 +1,0 @@
-/home/scott/c_template/build/CMakeFiles/hey.dir
-/home/scott/c_template/build/CMakeFiles/edit_cache.dir
-/home/scott/c_template/build/CMakeFiles/rebuild_cache.dir
