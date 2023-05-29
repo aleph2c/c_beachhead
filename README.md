@@ -10,16 +10,17 @@ The project offers the following commands:
 # Log into your WSL Linux distribution and run the commands
 # in your preferred shell
 
-# to see how to use the 'try' command
+# Get help
 try --help
 
-# create "VS Code" config and boilerplate C and test code
+# Create "VS Code" config and boilerplate C and test code
+# After this command is run "VC Code" can act as an IDE
 try new <c_project>
 
-# build your project (using CMake/Make)
+# Build your project (using CMake/Make)
 try build
 
-# run your tests using CMake/CMocka
+# Run your tests using CMake/CMocka
 try tests
 
 # Run "VS Code" in Windows 11
@@ -95,7 +96,7 @@ pip install -e .
 
 # Run a command provided by the Python environment to create a C environment
 # that "VS Code" will be able to work with in Windows 11
-try c new <program_name>
+try new <program_name>
 ```
 
 The above command will create:
@@ -130,6 +131,9 @@ This will run the following in the ``./build`` directory:
 
 - ``cmake ..`` if it hasn't been run before,
 - then it will run ``make``
+
+You can manually run these commands in the same directory to see the same
+results.
 
 ---
 
@@ -183,4 +187,3 @@ project by generating the following:
 - `CMakeLists.txt`: Contains the CMake instructions used to build the project and build the test project.
 
 As you build up your C project, you would add additional C files in ``./src`` with their matching headers in ``./inc``.  Your associated test files would go into ``./test``, and you would have to manually adjust the ``./main.c`` and ``./tests/main.c`` to include your new business logic and tests.
-
