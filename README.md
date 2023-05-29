@@ -1,13 +1,19 @@
-# Easy Setup for C Programming on WSL2 with VS Code in Windows 11
+# The C Beachhead
 
-Quickly turn on a WSL2 C programming project and then use VS Code in Windows 11
-to develop, build and debug it. (Turn VS Code into a C IDE for Linux while it
+Quickly turn on a WSL2 C programming project and then use "VS Code" in Windows 11
+to develop, build and debug it. (Turn "VS Code" into a C IDE for Linux while it
 runs on Windows 11)
 
 The project offers the following commands:
 
 ```bash
-# create VS config and boilerplate C and test code
+# Log into your WSL Linux distribution and run the commands
+# in your preferred shell
+
+# to see how to use the 'try' command
+try --help
+
+# create "VS Code" config and boilerplate C and test code
 try new <c_project>
 
 # build your project (using CMake/Make)
@@ -16,10 +22,10 @@ try build
 # run your tests using CMake/CMocka
 try tests
 
-# Run VS Code in Windows 11
-# VS Code can build using the WSL CMake/Make files
-# VS Code can build and run your tests
-# VS Code can debug the C or tests using GDB running in Linux
+# Run "VS Code" in Windows 11
+# "VS Code" can build using the WSL CMake/Make files
+# "VS Code" can build and run your tests
+# "VS Code" can debug the C or tests using GDB running in Linux
 code .
 
 # Remove all python and the try command
@@ -35,16 +41,16 @@ try remove
 
 To use this project follow these steps:
 
-- Install prerequisites in the WSL2 and in VS Code (see next section)
+- Install prerequisites in the WSL2 and in "VS Code" (see next section)
 - Use this template repo to create your own repo
 - Clone your repo onto your machine
 - Setup a Python environment
-- Run a command provided by the Python environment to create a C environment that VS Code can work with in Windows 11.
-- Open VS Code in Windows 11
+- Run a command provided by the Python environment to create a C environment that "VS Code" can work with in Windows 11.
+- Open "VS Code" in Windows 11
 - Confirm your C environment is working
 - Run tests and confirm they fail
 - Fix the test and confirm a pass
-- Use your VS Code as a C IDE for the WSL2
+- Use your "VS Code" as a C IDE for the WSL2
 - Optionally remove the Python environment, leaving only C and the Cmake infrastructure.
 
 ## Environment Prerequisites
@@ -54,7 +60,7 @@ Packages needed in the [WSL2](https://www.youtube.com/watch?v=Rzg144v3hfo) in Ub
 ```bash
 sudo apt update
 sudo apt install build-essential  # installs gcc, gcc+ and make
-sudo apt install gdb # a C debugger that VS code will use from windows 11
+sudo apt install gdb # a C debugger that "VS Code" will use from windows 11
 sudo apt install cmake # portable make
 sudo apt-get install libcmocka-dev # Sambda's CMocka C testing framework
 ```
@@ -86,7 +92,7 @@ source .venv/bin/activate
 pip install -e .
 
 # Run a command provided by the Python environment to create a C environment
-# that VS Code will be able to work with in Windows 11
+# that "VS Code" will be able to work with in Windows 11
 try c new <program_name>
 ```
 
@@ -98,12 +104,11 @@ The above command will create:
 - ``/test/<program_name>_test.c``
 - ``/test/<program_name>_test.h``
 - ``CMakeLists.txt`` configured to create ``<project_name>``
-- ``.vscode/`` directory with all of the configuration files required for VS
-Code (running on Windows 11) to build and debug your C programs within the WSL.
+- ``.vscode/`` directory with all of the configuration files required for "VS Code" (running on Windows 11) to build and debug your C programs within the WSL.
 
 ---
 
-Open VS Code in Windows 11
+Open "VS Code" in Windows 11
 
 ```bash
 code .
@@ -145,7 +150,7 @@ results.
 
 **Optional**:
 
-Once you are happy with your VS Code integration, you can remove the Python
+Once you are happy with your "VS Code" integration, you can remove the Python
 Environment and it's helper commands to only leave the C project.
 
 ```bash
@@ -164,8 +169,8 @@ The `try new <program_name>` command, creates a new WSL C
 project by generating the following:
 
 - `.vscode/tasks.json`: Configures the `make`, `cmake`, and `C/C++: gcc build active file` tasks, which are necessary for creating the executable.
-- `.vscode/launch.json`: Configures VS Code to utilize the gdb debugger within the WSL.
-- `.vscode/c_cpp_properties.json`: Configures the settings for C and C++ IntelliSense and browsing in VS Code.
+- `.vscode/launch.json`: Configures "VS Code" to utilize the gdb debugger within the WSL.
+- `.vscode/c_cpp_properties.json`: Configures the settings for C and C++ IntelliSense and browsing in "VS Code".
 - `/build/`: Contains the executables.
 - `main.c`: Contains the main C file.
 - `/src/<program_name>.c`: A skeleton for your business logic.
