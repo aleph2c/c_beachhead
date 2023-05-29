@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLHierarchy</id>
+    <coordinates>
+      <x>180</x>
+      <y>130</y>
+      <w>330</w>
+      <h>560</h>
+    </coordinates>
+    <panel_attributes>type=Package
+&lt;repo_name&gt;
+	main.c
+	src
+		&lt;program_name&gt;.c
+		...
+	inc
+		&lt;program_name&gt;.h
+		...
+	test
+		main.c
+		&lt;program_name&gt;_test.c
+		&lt;program_name&gt;_test.h
+		...
+	build
+		# generated content
+	CMakeLists.txt
+	README.md
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>540</x>
+      <y>250</y>
+      <w>260</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>void &lt;program_name&gt;_fnInit(void)
+void &lt;program_name&gt;_fnStart(void)
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>240</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.
+layer=3</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>260</y>
+      <w>130</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=.
+layer=3</panel_attributes>
+    <additional_attributes>10.0;70.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>540</x>
+      <y>470</y>
+      <w>320</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>void &lt;program_name&gt;_fnTest(void ** state)
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>470</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.
+layer=3</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>450</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.
+layer=3</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>540</x>
+      <y>330</y>
+      <w>220</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Test program, to build/run:
+
+cd build
+cmake ..
+make
+ctest
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>350</x>
+      <y>390</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.
+layer=3</panel_attributes>
+    <additional_attributes>10.0;50.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>540</x>
+      <y>110</y>
+      <w>220</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Main program, to build/run:
+
+cd build
+cmake ..
+make
+./&lt;program_name&gt;
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>140</y>
+      <w>250</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.
+layer=3</panel_attributes>
+    <additional_attributes>10.0;40.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>530</x>
+      <y>610</y>
+      <w>260</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Contains information to build
+the Main program and Test program
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>620</y>
+      <w>190</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.
+layer=3</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>180</x>
+      <y>90</y>
+      <w>210</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>C_template C project Layout
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

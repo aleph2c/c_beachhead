@@ -8,9 +8,10 @@ setup(
     'Click',
     'Jinja2',
     'PyYaml',
+    'colorama'
   ],
   entry_points="""
   [console_scripts]
-  wsl2vs=cli.cli:cli
+  try=cli.cli:cli
   """
 )

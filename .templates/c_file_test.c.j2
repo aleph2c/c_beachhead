@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdarg.h>
+#include <stddef.h>
+#include <setjmp.h>
+#include <cmocka.h>
+#include <sys/types.h>
+#include "{{ program }}.h"
+#include "{{ program }}_test.h"
+
+
+void {{ program }}_fnTest( void **state ) {
+  // assert_int_equal({{program}}_fnExample(1,2), 3);
+  assert_int_equal(1, 1); // this should pass to confirm initial test
+  assert_int_equal(1, 2); // this should fail to confirm initial test
+                          // infrastructure
+}
+
+
+

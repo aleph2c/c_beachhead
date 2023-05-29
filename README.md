@@ -1,43 +1,65 @@
 # Easy Setup for C Programming on WSL2 with VS Code in Windows 11
 
 Quickly turn on a WSL2 C programming project and then use VS Code in Windows 11
-to develop, build and debug it. (This turns your Windows 11 VS Code into a C IDE
-for your WSL2 Linux distribution.)
+to develop, build and debug it. (Turn VS Code into a C IDE for Linux while it
+runs on Windows 11)
 
-How it works:
+The project offers the following commands:
 
-A temporary Python environment is used to create a C programming configuration
-that can span across the two operating systems.  Once you have confirmed that
-``VS Code`` in Windows 11 can build and debug your C code on the WSL2, you can
-remove the Python environment so that you don't have extraneous files in your C
-project.  This removal will also over-write this README.md file with contents
-that relate to your C project.
+```bash
+# create VS config and boilerplate C and test code
+try new <c_project>
+
+# build your project (using CMake/Make)
+try build
+
+# run your tests using CMake/CMocka
+try tests
+
+# Run VS Code in Windows 11
+# VS Code can build using the WSL CMake/Make files
+# VS Code can build and run your tests
+# VS Code can debug the C or tests using GDB running in Linux
+code .
+
+# Remove all python and the try command
+# Overwrite your README.md file with things related to your project
+# The following things are NOT removed by this command:
+#   - C/H files
+#   - C/H test files
+#   - CMake/Make files
+try remove
+```
+
+![image](./images/c_layout.svg)
 
 To use this project follow these steps:
 
-- Install prerequisites in the WSL2 and in VS Code
+- Install prerequisites in the WSL2 and in VS Code (see next section)
 - Use this template repo to create your own repo
 - Clone your repo onto your machine
 - Setup a Python environment
 - Run a command provided by the Python environment to create a C environment that VS Code can work with in Windows 11.
 - Open VS Code in Windows 11
 - Confirm your C environment is working
-- Run another command to remove the Python environment
+- Run tests and confirm they fail
+- Fix the test and confirm a pass
 - Use your VS Code as a C IDE for the WSL2
-- Write your README.md file
+- Optionally remove the Python environment, leaving only C and the Cmake infrastructure.
 
 ## Environment Prerequisites
 
-Packages needed in the WSL2 in Ubuntu (v22.0.4):
+Packages needed in the [WSL2](https://www.youtube.com/watch?v=Rzg144v3hfo) in Ubuntu (v22.0.4):
 
 ```bash
 sudo apt update
 sudo apt install build-essential  # installs gcc, gcc+ and make
 sudo apt install gdb # a C debugger that VS code will use from windows 11
-sudo apt install cmake 
+sudo apt install cmake # portable make
+sudo apt-get install libcmocka-dev # Sambda's CMocka C testing framework
 ```
 
-VS Code (v1.78.2) extensions that were used while building this tool:
+[VS Code](https://code.visualstudio.com/download) (v1.78.2) extensions that were used while building this tool:
 
 - C/C++ v1.15.4 (microsoft)
 - C/C++ Extension Pack v1.3.0 (microsoft)
@@ -65,14 +87,17 @@ pip install -e .
 
 # Run a command provided by the Python environment to create a C environment
 # that VS Code will be able to work with in Windows 11
-wsl2vs c new <program_name>
+try c new <program_name>
 ```
 
 The above command will create:
-- ``/src/main.c``
+- ``main.c``
 - ``/src/<program_name>.c``
 - ``/inc/<program_name>.h``
-- ``CMakeLists.txt`` configured to create ``<project_name>.c``
+- ``/test/main.c``
+- ``/test/<program_name>_test.c``
+- ``/test/<program_name>_test.h``
+- ``CMakeLists.txt`` configured to create ``<project_name>``
 - ``.vscode/`` directory with all of the configuration files required for VS
 Code (running on Windows 11) to build and debug your C programs within the WSL.
 
@@ -88,12 +113,44 @@ Try the build and debug features, try changing a file and rebuilding.
 
 ---
 
+To build from the command line:
+
+```
+try build
+```
+
+This will run the following in the ``./build`` directory:
+
+- ``cmake ..`` if it hasn't been run before,
+- then it will run ``make``
+
+---
+
+To test your code:
+
+```
+try tests
+```
+
+This will run the following in the ``./build`` directory:
+
+- ``cmake ..`` if it hasn't been run before,
+- then it will run ``make``
+- ``ctest --output-on-failure``
+
+You can manually run these commands in the same directory to see the same
+results.
+
+---
+
+**Optional**:
+
 Once you are happy with your VS Code integration, you can remove the Python
 Environment and it's helper commands to only leave the C project.
 
 ```bash
 # Remove the Python Environment 
-wsl2vs remove
+try remove
 ```
 
 The above command will also over-write this boiler-plate README.md file with
@@ -101,25 +158,22 @@ something that will work for your C project.
 
 ## A Deeper Look
 
-This project uses the `click` Python command library to create a command called `wsl2vc`. The `wsl2vc c new <program_name>` command, creates a new WSL C
+This project uses the `click` Python command library to create a command called `try`. 
+
+The `try new <program_name>` command, creates a new WSL C
 project by generating the following:
 
 - `.vscode/tasks.json`: Configures the `make`, `cmake`, and `C/C++: gcc build active file` tasks, which are necessary for creating the executable.
 - `.vscode/launch.json`: Configures VS Code to utilize the gdb debugger within the WSL.
 - `.vscode/c_cpp_properties.json`: Configures the settings for C and C++ IntelliSense and browsing in VS Code.
 - `/build/`: Contains the executables.
-- `/src/main.c`: Contains the main C file.
+- `main.c`: Contains the main C file.
 - `/src/<program_name>.c`: A skeleton for your business logic.
 - `/inc/<program_name>.h`: Contains the public header for your ``<program_name>.c`` file.
-- `CMakeLists.txt`: Contains the CMake instructions used to build the project.
+- `/test/main.c`: Contains the main C test file.
+- `/test/<program_name>_test.c`: A skeleton for your test logic.
+- `/inc/<program_name>_test.h`: Contains the public header for your tests.
+- `CMakeLists.txt`: Contains the CMake instructions used to build the project and build the test project.
 
-As you grow and extend your project, you will need to adjust your
-``CMakeLists.txt``.  To confirm your build is working within the WSL
-
-```bash
-cd ./build
-cmake ..
-make
-```
-If your build process is working in the WSL, it should also work within the VS Code IDE.
+As you build up your C project, you would add additional C files in ``./src`` with their matching headers in ``./inc``.  Your associated test files would go into ``./test``, and you would have to manually adjust the ``./main.c`` and ``./tests/main.c`` to include your new business logic and tests.
 

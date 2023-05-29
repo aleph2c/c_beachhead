@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdarg.h>
+#include <stddef.h>
+#include <setjmp.h>
+#include <cmocka.h>
+#include <sys/types.h>
+#include "{{ program }}.h"
+#include "{{ program }}_test.h"
+
+
+int my_sum(int a, int b);
+static void test_function(void **state);
+
+static void test_function(void **state) {
+  assert_int_equal(my_sum(1, 2), 3);
+}
+
+int main() { 
+    // initialize the module(s)
+    // {{ program }}_fnInit();
+
+    // run the application
+    // {{ program }}_fnStart();
+
+    printf("Testing 1 + 2 == 3");
+    const struct CMUnitTest tests[] = {
+      cmocka_unit_test(test_function),
+      cmocka_unit_test({{ program }}_fnTest),
+    };
+    return cmocka_run_group_tests(tests, NULL, NULL);
+}
+
+int my_sum(int a, int b)
+{
+  return a + b;
+}
