@@ -1,13 +1,17 @@
-# Easy C Programming Setup
+# Easy Setup for C Programming on WSL2 with VS Code in Windows 11
 
 Quickly turn on a WSL2 C programming project and then use VS Code in Windows 11
 to develop, build and debug it. (This turns your Windows 11 VS Code into a C IDE
 for your WSL2 Linux distribution.)
 
-A temporary Python environment is used to create a C programming configuration that can
-span across the two operating systems.  Once you have confirmed that VS Code in
-Windows 11 can build and debug your C code on the WSL2, you remove the Python
-environment so that you don't have extraneous files in your C project.
+How it works:
+
+A temporary Python environment is used to create a C programming configuration
+that can span across the two operating systems.  Once you have confirmed that
+``VS Code`` in Windows 11 can build and debug your C code on the WSL2, you can
+remove the Python environment so that you don't have extraneous files in your C
+project.  This removal will also over-write this README.md file with contents
+that relate to your C project.
 
 To use this project follow these steps:
 
@@ -20,6 +24,7 @@ To use this project follow these steps:
 - Confirm your C environment is working
 - Run another command to remove the Python environment
 - Use your VS Code as a C IDE for the WSL2
+- Write your README.md file
 
 ## Environment Prerequisites
 
@@ -52,16 +57,15 @@ for your derived repo.
 # Clone your repo onto your machine
 git clone git@github.com:aleph2c/<repo_name>.git
 cd <repo_name>
+
 # Setup a Python environment
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
+
 # Run a command provided by the Python environment to create a C environment
 # that VS Code will be able to work with in Windows 11
 wsl2vs c new <program_name>
-
-# Open VS Code in Windows 11
-code .
 ```
 
 The above command will create:
@@ -74,17 +78,26 @@ Code (running on Windows 11) to build and debug your C programs within the WSL.
 
 ---
 
-Once you are happy with your environment, you can remove the Python and it's
-helper commands to only leave the C project:
+Open VS Code in Windows 11
+
+```bash
+code .
+```
+
+Try the build and debug features, try changing a file and rebuilding.
+
+---
+
+Once you are happy with your VS Code integration, you can remove the Python
+Environment and it's helper commands to only leave the C project.
 
 ```bash
 # Remove the Python Environment 
 wsl2vs remove
 ```
 
-The above command will remove all python and the ``wls2vs`` command and create a
-new README.md file for your C project.  You can now program C in the WSL from VS
-Code on Windows 11.
+The above command will also over-write this boiler-plate README.md file with
+something that will work for your C project.
 
 ## A Deeper Look
 
@@ -101,7 +114,7 @@ project by generating the following:
 - `CMakeLists.txt`: Contains the CMake instructions used to build the project.
 
 As you grow and extend your project, you will need to adjust your
-``CMakeLists.txt``.  To confirm your build it working within the WSL
+``CMakeLists.txt``.  To confirm your build is working within the WSL
 
 ```bash
 cd ./build
