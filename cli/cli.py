@@ -31,6 +31,7 @@ class Cli:
     tasks_json_template = template_path / 'tasks.json.j2'
     c_cpp_properties_template = template_path / 'c_cpp_properties.json.j2'
 
+    c_main_template = template_path / 'main.c.j2'
     c_template = template_path / 'c_file.c.j2'
     h_template = template_path / 'h_file.h.j2'
 
@@ -42,12 +43,14 @@ class Cli:
     launch_json = project_root / '.vscode' / 'launch.json'
     tasks_json = project_root / '.vscode' / 'tasks.json'
     c_cpp_properties = project_root / '.vscode' / 'c_cpp_properties.json'
+    main_c_path = project_root / 'src' / f"main.c"
     program_c_path = project_root / 'src' / f"{program}.c"
     program_h_path = project_root / 'inc' / f"{program}.h"
 
     data = {'project' : project, 'program' : program }
 
     for template_path, output_file_path in [
+        [c_main_template, main_c_path],
         [c_template, program_c_path],
         [h_template, program_h_path],
         [cmake_list_txt_template, cmake_lists_text],

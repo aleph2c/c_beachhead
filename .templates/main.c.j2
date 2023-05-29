@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include "{{ program }}.h"
+
+int main() { 
+    // initialize the module(s)
+    {{ program }}_fnInit();
+
+    // run the application
+    {{ program }}_fnStart();
+
+    printf("Hello World!\n");
+    return 0;
+}
