@@ -28,7 +28,7 @@ try tests
 # "VS Code" can debug the C or tests using GDB running in Linux
 code .
 
-# Remove all python and the try command
+# Remove all python and the "try" command
 # Overwrite your README.md file with things related to your project
 # The following things are NOT removed by this command:
 #   - C/H files
@@ -37,9 +37,11 @@ code .
 try remove
 ```
 
+This is what you will have after you have landed your C beachhead: 
+
 ![image](./images/c_layout.svg)
 
-To use this project follow these steps:
+To use this project follow these steps (detailed instructions available in the Quick Start section):
 
 - Install prerequisites in the WSL2 and in "VS Code" (see next section)
 - Use this template repo to create your own repo
