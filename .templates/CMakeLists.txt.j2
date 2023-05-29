@@ -3,8 +3,11 @@ cmake_minimum_required(VERSION 3.10)
 # Set the project name
 project ({{ project }})
 
+# Glob the source files
+file(GLOB SOURCES "src/*.c")
+
 # Add the executable
-add_executable({{ program }} src/main.c src/{{ program }}.c)
+add_executable({{ program }} ${SOURCES})
 
 target_include_directories( {{ program }} PUBLIC
     "${PROJECT_BINARY_DIR}"
