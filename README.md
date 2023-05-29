@@ -1,26 +1,71 @@
 # Easy C Programming Setup
 
-This project removes the complexity of setting a C project within the WSL and
-having access to it's build (via CMake) and debug (via gdb) from within VS Code
-running on Windows 11.
+Quickly turn on a WSL2 C programming project and then use VS Code in Windows 11
+to develop, build and debug it. (This turns your Windows 11 VS Code into a C IDE
+for your WSL2 Linux distribution.)
+
+A temporary Python environment is used to create a C programming configuration that can
+span across the two operating systems.  Once you have confirmed that VS Code in
+Windows 11 can build and debug your C code on the WSL2, you remove the Python
+environment so that you don't have extraneous files in your C project.
+
+To use this project follow these steps:
+
+- Install prerequisites in the WSL2 and in VS Code
+- Use this template repo to create your own repo
+- Clone your repo onto your machine
+- Setup a Python environment
+- Run a command provided by the Python environment to create a C environment that VS Code can work with in Windows 11.
+- Open VS Code in Windows 11
+- Confirm your C environment is working
+- Run another command to remove the Python environment
+- Use your VS Code as a C IDE for the WSL2
+
+## Environment Prerequisites
+
+Packages needed in the WSL2 in Ubuntu (v22.0.4):
+
+```bash
+sudo apt update
+sudo apt install build-essential  # installs gcc, gcc+ and make
+sudo apt install gdb # a C debugger that VS code will use from windows 11
+sudo apt install cmake 
+```
+
+VS Code (v1.78.2) extensions that were used while building this tool:
+
+- C/C++ v1.15.4 (microsoft)
+- C/C++ Extension Pack v1.3.0 (microsoft)
+- CMake v0.0.17, Extension Pack v1.3.0 (microsoft)
+- CMake Tools v1.14.31
+- Makefile Tools v0.7.0 (microsoft)
+- Markdown Preview Enhanced v0.6.8
+
+**Note:** All of the above tools were enabled on ``WSL: Ubuntu-22.0.4``
 
 ## Quick Start
 
-After you have clicked on "Use this template", you will select a ``<repo_name>`` for your derived repo.
-
-Once you have your ``<repo_name>`` follow these steps to quickly set up your C project:
+After you have clicked on "Use this template", you will select a ``<repo_name>``
+for your derived repo.
 
 ```bash
+# Clone your repo onto your machine
 git clone git@github.com:aleph2c/<repo_name>.git
 cd <repo_name>
+# Setup a Python environment
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
+# Run a command provided by the Python environment to create a C environment
+# that VS Code will be able to work with in Windows 11
 wsl2vs c new <program_name>
-code . # open VS code and write/build/debug your c files
+
+# Open VS Code in Windows 11
+code .
 ```
 
 The above command will create:
+- ``/src/main.c``
 - ``/src/<program_name>.c``
 - ``/inc/<program_name>.h``
 - ``CMakeLists.txt`` configured to create ``<project_name>.c``
@@ -28,51 +73,18 @@ The above command will create:
 Code (running on Windows 11) to build and debug your C programs within the WSL.
 
 ---
+
 Once you are happy with your environment, you can remove the Python and it's
 helper commands to only leave the C project:
 
-```
-wls2vs remove
-```
-
-The above command will remove all python and the wls2vs command and create a new README.md file for your C project.
-
-## Example: Setting Up a C Program
-
-Here's an example of setting up a C program called "hey" in the WSL:
-
 ```bash
-git clone git@github.com:aleph2c/<repo_name>.git
-cd <repo_name>
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -e .
-wsl2vs c new hey
-```
-
-To open the project in VS Code, use the following command:
-```
-code .
-```
-
-Inside VS Code, navigate to the `./src/hey.c` file. You can make your changes and then build or debug the file.
-
-If you wanted to build and run your program within the WSL:
-
-```
-cd build
-cmake ..
-make
-
-# to run the program
-./hey
-```
-
-If you are happy with your C project, unclutter your directory by removing the ``wsl2vc`` command and all of its supporting python:
-
-```
+# Remove the Python Environment 
 wsl2vs remove
 ```
+
+The above command will remove all python and the ``wls2vs`` command and create a
+new README.md file for your C project.  You can now program C in the WSL from VS
+Code on Windows 11.
 
 ## A Deeper Look
 
@@ -83,6 +95,18 @@ project by generating the following:
 - `.vscode/launch.json`: Configures VS Code to utilize the gdb debugger within the WSL.
 - `.vscode/c_cpp_properties.json`: Configures the settings for C and C++ IntelliSense and browsing in VS Code.
 - `/build/`: Contains the executables.
-- `/src/<program_name>.c`: Contains the main C file.
-- `/inc/<program_name>.h`: Contains the public header files.
+- `/src/main.c`: Contains the main C file.
+- `/src/<program_name>.c`: A skeleton for your business logic.
+- `/inc/<program_name>.h`: Contains the public header for your ``<program_name>.c`` file.
 - `CMakeLists.txt`: Contains the CMake instructions used to build the project.
+
+As you grow and extend your project, you will need to adjust your
+``CMakeLists.txt``.  To confirm your build it working within the WSL
+
+```bash
+cd ./build
+cmake ..
+make
+```
+If your build process is working in the WSL, it should also work within the VS Code IDE.
+
