@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Set the project name
-project (c_template)
+project (c_beachhead)
 
 # Glob the source files
 file(GLOB SOURCES "src/*.c")

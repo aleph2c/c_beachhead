@@ -103,6 +103,7 @@ The above command will create:
 - ``main.c``
 - ``/src/<program_name>.c``
 - ``/inc/<program_name>.h``
+- ``/inc/common.h``
 - ``/test/main.c``
 - ``/test/<program_name>_test.c``
 - ``/test/<program_name>_test.h``

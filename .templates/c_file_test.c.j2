@@ -7,9 +7,10 @@
 #include "{{ program }}.h"
 #include "{{ program }}_test.h"
 
+{% set public_name = program | upper %}
 
 void {{ program }}_fnTest( void **state ) {
-  // assert_int_equal({{program}}_fnExample(1,2), 3);
+  // assert_int_equal({{ public_name }}_fnExample(1,2), 3);
   assert_int_equal(1, 1); // this should pass to confirm initial test
   assert_int_equal(1, 2); // this should fail to confirm initial test
                           // infrastructure

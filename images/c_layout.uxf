@@ -7,7 +7,7 @@
       <x>180</x>
       <y>130</y>
       <w>330</w>
-      <h>560</h>
+      <h>590</h>
     </coordinates>
     <panel_attributes>type=Package
 &lt;repo_name&gt;
@@ -16,6 +16,7 @@
 		&lt;program_name&gt;.c
 		...
 	inc
+		common.h
 		&lt;program_name&gt;.h
 		...
 	test
@@ -35,11 +36,11 @@
     <coordinates>
       <x>540</x>
       <y>250</y>
-      <w>260</w>
+      <w>290</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>void &lt;program_name&gt;_fnInit(void)
-void &lt;program_name&gt;_fnStart(void)
+    <panel_attributes>void &lt;PROGRAM_NAME&gt;_fnInit(void)
+void &lt;PROGRAM_NAME&gt;_fnStart(void)
 layer=3</panel_attributes>
     <additional_attributes/>
   </element>
@@ -61,17 +62,17 @@ layer=3</panel_attributes>
       <x>430</x>
       <y>260</y>
       <w>130</w>
-      <h>90</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=.
 layer=3</panel_attributes>
-    <additional_attributes>10.0;70.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;100.0;110.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
       <x>540</x>
-      <y>470</y>
+      <y>500</y>
       <w>320</w>
       <h>30</h>
     </coordinates>
@@ -83,7 +84,7 @@ layer=3</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>470</x>
-      <y>470</y>
+      <y>500</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -95,7 +96,7 @@ layer=3</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>470</x>
-      <y>450</y>
+      <y>480</y>
       <w>30</w>
       <h>70</h>
     </coordinates>
@@ -107,7 +108,7 @@ layer=3</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>540</x>
-      <y>330</y>
+      <y>360</y>
       <w>220</w>
       <h>110</h>
     </coordinates>
@@ -124,7 +125,7 @@ layer=3</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>350</x>
-      <y>390</y>
+      <y>420</y>
       <w>210</w>
       <h>70</h>
     </coordinates>
@@ -165,7 +166,7 @@ layer=3</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>530</x>
-      <y>610</y>
+      <y>640</y>
       <w>260</w>
       <h>50</h>
     </coordinates>
@@ -178,7 +179,7 @@ layer=3</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>360</x>
-      <y>620</y>
+      <y>650</y>
       <w>190</w>
       <h>30</h>
     </coordinates>

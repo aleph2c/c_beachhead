@@ -6,6 +6,10 @@ from colorama import Fore, Style, init
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
 
+def snake_to_camel(value):
+  words = value.split('_')
+  return ''.join(word.capitalize() for word in words)
+
 class Cli:
   def __init__(self):
     self.this_dir = Path(__file__).parent.parent
@@ -37,6 +41,7 @@ class Cli:
     c_main_template = template_path / 'main.c.j2'
     c_template = template_path / 'c_file.c.j2'
     h_template = template_path / 'h_file.h.j2'
+    common_h_template = template_path / 'common.h.j2'
 
     c_main_test_template = template_path / 'main_test.c.j2'
     c_test_template = template_path / 'c_file_test.c.j2'
@@ -53,6 +58,7 @@ class Cli:
     main_c_path = project_root / "main.c"
     program_c_path = project_root / 'src' / f"{program}.c"
     program_h_path = project_root / 'inc' / f"{program}.h"
+    common_h_path = project_root / 'inc' / "common.h"
 
     main_c_test_path = project_root / 'test' / "main.c"
     program_c_test_path = project_root / 'test' / f"{program}_test.c"
@@ -66,6 +72,7 @@ class Cli:
             [c_main_template, main_c_path],
             [c_template, program_c_path],
             [h_template, program_h_path],
+            [common_h_template, common_h_path],
             [c_main_test_template, main_c_test_path],
             [c_test_template, program_c_test_path],
             [h_test_template, program_h_test_path],
@@ -83,6 +90,7 @@ class Cli:
         trim_blocks=True,
         lstrip_blocks=True
       )
+      env.filters['snake_to_camel'] = snake_to_camel
       template = env.get_template(str(template_path.name))
       output_string = template.render(**data)
       with open(output_file_path, "w") as fp:

@@ -2,12 +2,14 @@
 #include <sys/types.h>
 #include "{{ program }}.h"
 
+{% set public_name = program | upper %}
+
 int main() { 
     // initialize the module(s)
-    {{ program }}_fnInit();
+    {{ public_name }}_fnInit();
 
     // run the application
-    {{ program }}_fnStart();
+    {{ public_name }}_fnStart();
 
     printf("Hello World!\n");
     return 0;

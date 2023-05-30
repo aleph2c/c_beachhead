@@ -3,8 +3,10 @@
 
 #include <stdio.h>
 #include <sys/types.h>
+#include "common.h"
+{% set public_name = program | upper %}
 
-void {{ program }}_fnInit( void );
-void {{ program }}_fnStart( void );
+void {{ public_name }}_fnInit( void );
+void {{ public_name }}_fnStart( void );
 
 #endif
