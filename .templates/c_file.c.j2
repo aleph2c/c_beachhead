@@ -14,13 +14,13 @@ static tz{{ private_name }} g_tz{{ private_name}}Data;
 
 void {{ public_name }}_fnInit()
 {
-    g_tz{{ private_name}}Data.ucInitialized = True;
+    g_tz{{ private_name}}Data.ucInitialized = true;
     return;
 }
 
 void {{ public_name }}_fnStart()
 {
-    if(g_tz{{ private_name }}Data.ucInitialized == False)
+    if(g_tz{{ private_name }}Data.ucInitialized == false)
     {
        {{ public_name }}_fnInit();
     }

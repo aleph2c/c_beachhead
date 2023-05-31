@@ -11,10 +11,15 @@
 
 void {{ program }}_fnTest( void **state ) {
   // assert_int_equal({{ public_name }}_fnExample(1,2), 3);
+
+  // To compare arrays with CMocka
+  // uint8_t aucBytes[] = {0x01, 0x02, 0x03};
+  // uint8_t aucResultBytes[] = {0x00, 0x00, 0x00};
+  // assert_memory_equal(aucBytes, aucResultBytes, sizeof(aucBytes));
+
   assert_int_equal(1, 1); // this should pass to confirm initial test
   assert_int_equal(1, 2); // this should fail to confirm initial test
                           // infrastructure
 }
-
 
 
