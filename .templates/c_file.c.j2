@@ -12,13 +12,13 @@ typedef struct z{{ private_name }}Data
 
 static tz{{ private_name }} g_tz{{ private_name}}Data;
 
-void {{ public_name }}_fnInit()
+void {{ public_name }}_fnInit(void)
 {
     g_tz{{ private_name}}Data.ucInitialized = true;
     return;
 }
 
-void {{ public_name }}_fnStart()
+void {{ public_name }}_fnStart(void)
 {
     if(g_tz{{ private_name }}Data.ucInitialized == false)
     {
